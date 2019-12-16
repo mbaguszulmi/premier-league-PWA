@@ -1,0 +1,22 @@
+{
+    "name": "Premiere League",
+    "short_name": "Premiere League",
+    "description": "App for premiere league information",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#1a237e",
+    "gcm_sender_id": "941779041074",
+    "icons": [
+        {
+            "src": "/assets/images/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

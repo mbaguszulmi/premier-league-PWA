@@ -1,0 +1,78 @@
+.match-card {
+    padding: 10px 0;
+}
+
+.match-club .club {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.match-club .club-icon {
+    max-width: 24px;
+    max-height: 24px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.match-club .club-name {
+    line-height: 24px;
+}
+
+.match-card .match-time {
+    font-size: 0.9em;
+    padding: 10px;
+}
+
+.row.match-club {
+    margin: 5px 0;
+}
+
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.tabs-section {
+    position: sticky;
+    top: 56px;
+    z-index: 999;
+}
+
+.table-row-blue {
+    background-color: #e1f5fe;
+}
+
+.table-row-orange {
+    background-color: #ffe0b2;
+}
+
+.table-row-red {
+    background-color: #ffcdd2;
+}
+
+.table-row-highlight {
+    font-weight: 700;
+}
+
+#standings, .squad-table {
+    overflow-x: auto;
+}
+
+.image-club-card {
+    width: 100%;
+    padding-top: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* media queries */
+
+@media screen and (max-width: 600) {
+    .tabs-section {
+        top: 56px;
+    }
+}

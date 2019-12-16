@@ -1,0 +1,91 @@
+<section class="tabs-section indigo darken-4">
+    <div class="container">
+        <ul class="tabs indigo darken-4 tabs-transparent">
+            <li class="tab"><a class="active" href="#matches">Matches</a></li>
+            <li class="tab"><a href="#standings">Standings</a></li>
+            <li class="tab"><a href="#squad">Squad</a></li>
+        </ul>
+    </div>
+</section>
+
+<div id="tab-contents" class="container">
+    <div id="matches">
+        <div id="all-matches" class="row"></div>
+        <div id="preload-matches-bottom" class="preloader-container center-align section">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="standings">
+        <div id="standings-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Club</th>
+                        <th>MP</th>
+                        <th>W</th>
+                        <th>D</th>
+                        <th>L</th>
+                        <th>GF</th>
+                        <th>GA</th>
+                        <th>GD</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody id="standings-table-body">
+                    <td colspan="10" id="preload-standings">
+                        <div class="preloader-container center-align section">
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer spinner-blue-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="squad">
+        <p>
+            <i class="tiny material-icons">person</i> Coach: <span id="coach"></span>
+        </p>
+
+        <div class="squad-table">
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Nationality</th>
+                    <th>Shirt Number</th>
+                    <th>Age</th>
+                </thead>
+                <tbody id="squad-table-body">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
