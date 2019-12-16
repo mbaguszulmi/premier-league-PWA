@@ -63,7 +63,7 @@ const dbUpdateFavoriteTeam = (favoriteTeamData, id) => {
     return new Promise((resolve, reject) => {
         idbPromised.then(db => {
             const transaction = db.transaction("favorite_team", 'readwrite')
-            transaction.objectStoreNames("favorite_team").put(favoriteTeamData, id)
+            transaction.objectStore("favorite_team").put(favoriteTeamData, id)
             return transaction
         })
         .then(transaction => {

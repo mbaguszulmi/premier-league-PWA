@@ -1,80 +1,64 @@
-const CACHE_NAME = "premiere-league";
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js');
 
-var urlsToCache = [
-    "/",
-    "/manifest.json",
-    "/index.html",
-    "/service-worker.js",
-    "/pages/general.html",
-    "/pages/team.html",
-    "/assets/css/material-icons.css",
-    "/assets/css/materialize.min.css",
-    "/assets/css/style.css",
-    "/assets/fonts/MaterialIcons-Regular.ttf",
-    "/assets/fonts/MaterialIcons-Regular.woff",
-    "/assets/fonts/MaterialIcons-Regular.woff2",
-    "/assets/images/icon-128.png",
-    "/assets/images/icon-192.png",
-    "/assets/images/icon-256.png",
-    "/assets/images/icon-512.png",
-    "/assets/images/no-club-logo.png",
-    "/assets/js/api.js",
-    "/assets/js/components.js",
-    "/assets/js/db-helper.js",
-    "/assets/js/idb.js",
-    "/assets/js/materialize.min.js",
-    "/assets/js/nav.js",
-    "/assets/js/notification.js",
-    "/assets/js/register-service-worker.js",
-];
+if (workbox)
+    console.log(`Workbox berhasil dimuat`);
+else
+    console.log(`Workbox gagal dimuat`);
 
-self.addEventListener("install", event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(function (cache) {
-            return cache.addAll(urlsToCache);
-        })
-    );
-});
+workbox.precaching.precacheAndRoute([
+    {url: "/manifest.json", revision: '1'},
+    {url: "/index.html", revision: '1'},
+    {url: "/service-worker.js", revision: '1'},
+    {url: "/assets/css/material-icons.css", revision: '1'},
+    {url: "/assets/css/materialize.min.css", revision: '1'},
+    {url: "/assets/css/style.css", revision: '1'},
+    {url: "/assets/fonts/MaterialIcons-Regular.ttf", revision: '1'},
+    {url: "/assets/fonts/MaterialIcons-Regular.woff", revision: '1'},
+    {url: "/assets/fonts/MaterialIcons-Regular.woff2", revision: '1'},
+    {url: "/assets/images/icon-128.png", revision: '1'},
+    {url: "/assets/images/icon-192.png", revision: '1'},
+    {url: "/assets/images/icon-256.png", revision: '1'},
+    {url: "/assets/images/icon-512.png", revision: '1'},
+    {url: "/assets/images/no-club-logo.png", revision: '1'},
+    {url: "/assets/js/api.js", revision: '1'},
+    {url: "/assets/js/components.js", revision: '1'},
+    {url: "/assets/js/db-helper.js", revision: '1'},
+    {url: "/assets/js/idb.js", revision: '1'},
+    {url: "/assets/js/materialize.min.js", revision: '1'},
+    {url: "/assets/js/nav.js", revision: '1'},
+    {url: "/assets/js/notification.js", revision: '1'},
+    {url: "/assets/js/register-service-worker.js", revision: '1'},
+]);
 
-self.addEventListener("fetch", event => {
-    const base_url = "https://api.football-data.org/";
-    if (event.request.url.indexOf(base_url) > -1) {
-        event.respondWith(
-            caches.open(CACHE_NAME).then(cache => {
-                return cache.match(event.request).then(response => {
-                    var fetchPromise = fetch(event.request).then(function(networkResponse) {
-                        cache.put(event.request.url, networkResponse.clone());
-                        return networkResponse;
-                    })
-                    return response || fetchPromise;
-                })
+workbox.routing.registerRoute(
+    new RegExp('/pages/'),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'pages'
+    })
+);
+
+workbox.routing.registerRoute(
+    new RegExp('https://api.football-data.org/'),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'football-data'
+    })
+);
+
+workbox.routing.registerRoute(
+    new RegExp('https://upload.wikimedia.org/'),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'team-crest',
+        plugins: [
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0, 200]
+            }),
+            new workbox.expiration.Plugin({
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+                maxEntries: 30
             })
-        );
-    } else {
-        event.respondWith(
-            caches.match(event.request, {'ignoreSearch': true}).then(response => {
-                return response || fetch (event.request);
-            })
-        );
-    }
-});
-
-self.addEventListener("activate", event => {
-    console.log("activate...");
-    event.waitUntil(
-        caches.keys().then(function (cacheNames) {
-            return Promise.all(
-                cacheNames.map(function (cacheName) {
-                    console.log("Caches: ", cacheName);
-                    if (cacheName != CACHE_NAME) {
-                        console.log("ServiceWorker: cache " + cacheName + " dihapus");
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
-});
+        ]
+    })
+);
 
 self.addEventListener("notificationclick", event => {
     if (!event.action) {

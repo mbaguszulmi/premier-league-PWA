@@ -53,10 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 logoContainer.innerHTML = 'Premier League';
                 docTitle.innerHTML = 'Premier League';
 
-                curMatchDay = (await getCompetitionInfo()).currentSeason.currentMatchday;
+                curMatchDay = (await getCompetitionInfo().catch(error => {
+                    M.toast({html: `Getting current matchday failed: ${error}`});
+                    console.error(error);
+                })).currentSeason.currentMatchday;
 
                 // matches
                 let matchData = await getMatches().catch(error => {
+                    M.toast({html: `Getting match data failed: ${error}`});
                     console.error(error);
                 });
 
@@ -96,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // standings
                 let standings = await getStandings().catch(error => {
+                    M.toast({html: `Getting standings data failed: ${error}`});
                     console.error(error);
                 });
 
@@ -172,7 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 teamId = urlSegment[2];
 
                 // team info
-                let teamInfo = await getTeam(teamId).catch(error => console.error(error));
+                let teamInfo = await getTeam(teamId).catch(error => {
+                    M.toast({html: `Getting team info failed: ${error}`});
+                    console.error(error);
+                });
                 logoContainer.innerHTML = teamInfo.name;
                 docTitle.innerHTML = `${teamInfo.name} | Premier League`;
                 
@@ -188,7 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // matches
-                let matchData = await getMatches({ competitions: LEAGUE_ID }, teamId).catch(error => console.error(error));
+                let matchData = await getMatches({ competitions: LEAGUE_ID }, teamId).catch(error => {
+                    M.toast({html: `Getting match data failed: ${error}`});
+                    console.error(error);
+                });
                 
                 if (matchData) {
                     let allMatches = document.querySelector('#all-matches');
@@ -209,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // standings
                 let standings = await getStandings().catch(error => {
+                    M.toast({html: `Getting standings data failed: ${error}`});
                     console.error(error);
                 });
 
@@ -251,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .catch(error => {
+            M.toast({html: `Load page failed: ${error}`});
             console.error(error);
         });
     }

@@ -16,9 +16,11 @@ const removeFavBtnClick = event => {
             }
             card.parentNode.removeChild(card);
             teamList.insertAdjacentHTML('beforeend', clubCard(team));
+            M.toast({html: `${team.name} removed from favorite`});
         }
     })
     .catch(error => {
+        M.toast({html: `Remove favorite team failed: ${error}`});
         console.error(error);
     });
 }
@@ -33,7 +35,7 @@ const addFavBtnClick = event => {
         crestUrl: event.currentTarget.getAttribute('data-club-crest')
     };
 
-    dbInsertFavoriteTeam(team)
+    dbUpdateFavoriteTeam(team, team.id)
     .then(success => {
         if (success) {
             if (card.parentNode.childElementCount == 1) {
@@ -41,9 +43,11 @@ const addFavBtnClick = event => {
             }
             card.parentNode.removeChild(card);
             favoriteTeams.insertAdjacentHTML('beforeend', clubCardFav(team));
+            M.toast({html: `${team.name} added to favorite`});
         }
     })
     .catch(error => {
+        M.toast({html: `Add favorite team failed: ${error}`});
         console.error(error);
     });
 }
