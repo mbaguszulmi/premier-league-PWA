@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             else if (index > 16) {
                                 color = 'red';
                             }
+                            clubStands.team.crestUrl = clubStands.team.crestUrl.replace(/^http:\/\//i, 'https://');
                             standingsTableBody.insertAdjacentHTML('beforeend', standingTableBody(clubStands, color));
 
                             document.querySelectorAll(`.club-icon-${clubStands.team.id}`).forEach(elem => {
@@ -249,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (clubStands.team.id == teamId) {
                                 highlight = true;
                             }
-
+                            clubStands.team.crestUrl = clubStands.team.crestUrl.replace(/^http:\/\//i, 'https://');
                             standingsTableBody.insertAdjacentHTML('beforeend', standingTableBody(clubStands, color, highlight));
 
                             document.querySelectorAll(`.club-icon-${clubStands.team.id}`).forEach(elem => {

@@ -35,7 +35,7 @@ const addFavBtnClick = event => {
         crestUrl: event.currentTarget.getAttribute('data-club-crest')
     };
 
-    dbUpdateFavoriteTeam(team, team.id)
+    dbInsertFavoriteTeam(team)
     .then(success => {
         if (success) {
             if (card.parentNode.childElementCount == 1) {

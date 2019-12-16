@@ -70,7 +70,7 @@ self.addEventListener("notificationclick", event => {
     switch (event.action) {
         case 'open_url':
             console.log('Pengguna memilih action open_url.');
-            clients.openWindow('http://127.0.0.1:8887/');
+            clients.openWindow('https://premiere-league-2f9f7.firebaseapp.com/');
             break;
         default:
             console.log(`Action yang dipilih tidak dikenal: '${event.action}'`);

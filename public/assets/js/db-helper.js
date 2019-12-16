@@ -25,7 +25,7 @@ const dbInsertFavoriteTeam = favoriteTeamData => {
     return new Promise((resolve, reject) => {
         idbPromised.then(db => {
             const transaction = db.transaction("favorite_team", 'readwrite')
-            transaction.objectStore("favorite_team").add(favoriteTeamData)
+            transaction.objectStore("favorite_team").put(favoriteTeamData)
             return transaction
         })
         .then(transaction => {
